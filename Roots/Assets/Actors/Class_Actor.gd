@@ -14,6 +14,7 @@ export var JUMP_HEIGHT = 0;
 
 # Métodos da Classe
 func _physics_process(delta: float) -> void:
+	# Adiciona gravidade constante
 	VELOCITY.y += GRAVITY;
 	
 func AliveStats() -> bool:

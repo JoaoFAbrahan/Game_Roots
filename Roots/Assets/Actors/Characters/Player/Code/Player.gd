@@ -3,27 +3,37 @@ extends Class_Actor
 var direction = Vector2.ZERO;
 
 var health = 100;
-var barrHungry = 100;
-var barrThirst = 100;
+var hungryBarr = 100;
+var thirstBarr = 100;
+const runSpeed = 200;
 
+# Essa função roda sempre na primeira vez que o objeto é chamado (similar a um método construtor)
 func _ready() -> void:
 	STAMINA = 100;	
 	JUMP_HEIGHT = -300;
 	SPEED = 300;
 
 func _physics_process(delta: float) -> void:
-	# Recebe input de direção
-	direction = MovementPlayer(VELOCITY);
+	# Recebe inputs de direção
+	direction = PlayerMoviment(VELOCITY);
+	
+	
 	
 	# Altera a velocidade baseada nos inputs de direção
 	VELOCITY = move_and_slide(direction, UP_SIDE);
 
-func MovementPlayer(velocity: Vector2) -> Vector2:
+func PlayerMoviment(velocity: Vector2) -> Vector2:
 	# Movimenta o jogador
 	if Input.is_action_pressed("Player_MoveRight"):
-		VELOCITY.x = SPEED;
+		if Input.is_action_pressed("Player_Running"):
+			VELOCITY.x = SPEED + runSpeed;
+		else:
+			VELOCITY.x = SPEED;
 	elif Input.is_action_pressed("Player_MoveLeft"):
-		VELOCITY.x = -SPEED;
+		if Input.is_action_pressed("Player_Running"):
+			VELOCITY.x = -SPEED - runSpeed;
+		else:
+			VELOCITY.x = -SPEED;
 	else:
 		VELOCITY.x = 0;
 	
