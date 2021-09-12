@@ -2,23 +2,19 @@ extends KinematicBody2D
 
 class_name Class_Actor
 # Atributos da Classe
-export var isAlive = true;
-export var health = 0;
-export var gravity = 900;
-export var velocity = Vector2.ZERO;
-export var speed = 0;
+export var IS_ALIVE = true;
+export var STAMINA = 0;
+
+const GRAVITY = 9;
+const UP_SIDE = Vector2(0,-1);
+
+export var VELOCITY = Vector2.ZERO;
+export var SPEED = 150;
+export var JUMP_HEIGHT = 0;
 
 # Métodos da Classe
-func _ready() -> void:
-	pass;
-
 func _physics_process(delta: float) -> void:
-	# Aplicando a força de gravidade nos objetos da classe "Class_Actor"
-	velocity.y += gravity * delta;
-	velocity = move_and_slide(velocity);
-
-func Damage() -> void:
-	pass;
-
+	VELOCITY.y += GRAVITY;
+	
 func AliveStats() -> bool:
-	return isAlive;
+	return IS_ALIVE;
